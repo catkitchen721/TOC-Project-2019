@@ -8,10 +8,16 @@ ACCESS_TOKEN = os.environ.get("ACCESS_TOKEN")
 
 def send_text_message(id, text):
     url = "{0}/me/messages?access_token={1}".format(GRAPH_URL, ACCESS_TOKEN)
-    payload = {
-        "recipient": {"id": id},
-        "message": {"text": text}
-    }
+    if(text == None):
+        payload = {
+            "recipient": {"id": id},
+            "message": {"text": ":)"}
+        }
+    else:
+        payload = {
+            "recipient": {"id": id},
+            "message": {"text": text}
+        }
     response = requests.post(url, json=payload)
 
     if response.status_code != 200:

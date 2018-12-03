@@ -1,7 +1,8 @@
 from bottle import route, run, request
+import os
 
 
-VERIFY_TOKEN = "1234567890987654321"
+VERIFY_TOKEN = os.environ.get("ACCESS_TOKEN")
 
 
 @route("/webhook", method="GET")
