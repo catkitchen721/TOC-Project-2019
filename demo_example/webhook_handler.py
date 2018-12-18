@@ -10,6 +10,7 @@ machine = TocMachine(
         'user',
         'state1',
         'state2',
+        'state3'
     ],
     transitions=[
         {
@@ -19,16 +20,21 @@ machine = TocMachine(
             'conditions': 'is_going_to_state1'
         },
         {
+            'trigger': 'go_back_from_state1',
+            'source': 'state1',
+            'dest': 'state2'
+        },
+        {
             'trigger': 'advance',
             'source': 'user',
-            'dest': 'state2',
-            'conditions': 'is_going_to_state2'
+            'dest': 'state3',
+            'conditions': 'is_going_to_state3'
         },
         {
             'trigger': 'go_back',
             'source': [
-                'state1',
-                'state2'
+                'state2',
+                'state3'
             ],
             'dest': 'user'
         }
@@ -49,7 +55,6 @@ def webhook_handler():
     if body['object'] == "page":
         event = body['entry'][0]['messaging'][0]
         machine.advance(event)
-        show_fsm()
         return 'OK'
 
 @route('/show-fsm', methods=['GET'])
