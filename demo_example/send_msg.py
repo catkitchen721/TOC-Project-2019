@@ -11,7 +11,7 @@ def send_text_message(id, text):
     if(text == None):
         payload = {
             "recipient": {"id": id},
-            "message": {"text": ":)"}
+            "message": {"text": "請輸入文字"}
         }
     else:
         payload = {
